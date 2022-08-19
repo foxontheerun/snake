@@ -8,6 +8,7 @@ class Snake {
         this.x = 640/2 - this.size/2;
         this.y = 640/2 - this.size/2;
         this.score = score;
+        this.speed = 0;
         // console.log(this.x);
         // this.TEST = setInterval(this.render, 500);
         // console.log(this.x);
