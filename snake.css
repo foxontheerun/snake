@@ -21,3 +21,11 @@ canvas {
     background: var(--tetris-field-color);
     /* border: 1px solid var(--tetris-field-color); */
 }
+
+#score {
+    width: 300px;
+    height: 600px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}

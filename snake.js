@@ -1,4 +1,5 @@
 const canvas = document.getElementById('game');
+const placeForData = document.getElementById('score');
 const context = canvas.getContext('2d');
 // var count = 0;
 
@@ -85,6 +86,7 @@ const apple = {
 
 
 const gamer = new Snake('Alsu');
+logScore();
 document.addEventListener('keydown', function (e) {
   gamer.changeDirection(e);
 });
@@ -101,9 +103,19 @@ function go() {
     gamer.score++;
     gamer.maxCells++;
     console.log(gamer.score);
+    logScore();
   }
 }
 
+function logScore() {
+  // context.font = "48px serif";
+  // context.fillText(gamer.score, 700, 50);
+  placeForData.innerHTML = `<div 
+  style = "color: rgb(75, 91, 94); 
+          font-size: 48px;"
+          font: serif;
+          > Score: ${gamer.score}</div>`
+}
 
 let timerSnake = setInterval(go, 70);
 
