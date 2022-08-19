@@ -1,66 +1,65 @@
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
+var count = 0;
 
-class Snake {
-    constructor(id, score = 0) {
-        this.id = id;
-        this.size = 32;
-        this.x = 640/2 - this.size/2;
-        this.y = 640/2 - this.size/2;
-        this.score = score;
-        this.speed = 0;
-        // console.log(this.x);
-        // this.TEST = setInterval(this.render, 500);
-        // console.log(this.x);
+function Snake(id) {
+    this.id = id;
+    this.cellSize = 32;
+    this.x = 304;
+    this.y = 304;
+    this.score = 0;
+    this.dx = this.cellSize;
+    this.dy = 0;
+
+    this.move = function() {
+      this.render();
+      this.x += this.dx;
+      this.y += this.dy;
     }
 
-
-    move() {
-        if (e.which === 37 || e.which === 39) {
-            const col = e.which === 37
-              // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
-              ? this.x - this.size
-              : this.x + this.size;
-          }
-          if (e.which === 38 || e.which === 40) {
-            const col = e.which === 38
-              // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
-              ? this.y - this.size
-              : this.y + this.size;
-          }
-        this.render();
+    this.render = function() {
+      context.fillRect(this.x, this.y, this.cellSize - 1, this.cellSize - 1);
     }
 
-    render() {
-        context.fillStyle = 'rgb(182, 250, 104)';
-        context.fillRect(this.x, this.y, this.size, this.size);
-        context.clearRect(this.x - this.size, this.y, this.size, this.size);
-        // this.x =  this.x + this.size;
     }
 
-   
-
-}
-
-
-let user = new Snake('Jopa');
-console.log(user.x);
-document.addEventListener('keydown', () => user.move());
-setInterval(function() {
-    user.move();
-  }, 500);
+const apple = {
+  x: 220,
+  y: 220
+};
 
 
 
-//   document.addEventListener('keydown', function(e) {
-  
-//     // стрелки влево и вправо
-//     if (e.which === 37 || e.which === 39) {
-//       const col = e.which === 37
-//         // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
-//         ? tetromino.col - 1
-//         : tetromino.col + 1;
-//     }});
+
+let snake = new Snake('Jopa');
+document.addEventListener('keydown', function (e) {
+  if (e.which === 37 && snake.dx === 0) {
+    snake.dx += -snake.cellSize;
+    snake.dy = 0;
+  }
+  // Стрелка вверх
+  else if (e.which === 38 && snake.dy === 0) {
+    snake.dy += -snake.cellSize;
+    snake.dx = 0;
+  }
+  // Стрелка вправо
+  else if (e.which === 39 && snake.dx === 0) {
+    snake.dx += snake.cellSize;
+    snake.dy = 0;
+  }
+  // Стрелка вниз
+  else if (e.which === 40 && snake.dy === 0) {
+    snake.dy += snake.cellSize;
+    snake.dx = 0;
+  }
+});
+
+let time = setInterval(function() {snake.move();}, 500);
+// snake.move();
+console.log(snake.x);
 
 
-console.log(user.x);
+
+
+
+
