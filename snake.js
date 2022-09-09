@@ -1,7 +1,7 @@
 const canvas = document.getElementById('game');
 const placeForData = document.getElementById('score');
 const context = canvas.getContext('2d');
-// var count = 0;
+const taskEntryField = document.getElementById('input');
 
 function Snake(id) {
     this.id = id;
@@ -24,7 +24,6 @@ function Snake(id) {
       this.cells.forEach(cell => {
         context.fillStyle = 'rgb(182, 250, 104)';
         context.fillRect(cell.x , cell.y , this.cellSize - 1, this.cellSize - 1);
-        // this.render(cell);
       });
       if (this.cells[0].x > 608 && this.cells[1].x <= 608) {
         this.x -= 672;
@@ -41,7 +40,8 @@ function Snake(id) {
       this.x += this.dx;
       this.y += this.dy;
     }
-
+    
+   
     this.clear = function() {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
@@ -84,59 +84,72 @@ const apple = {
   },
 };
 
-
-const gamer = new Snake('Alsu');
-logScore();
-document.addEventListener('keydown', function (e) {
-  gamer.changeDirection(e);
-});
-
-apple.__proto__ = gamer;
-
-
-function go() {
-  gamer.move();
-  apple.render();
-  if (gamer.x == apple.x && gamer.y == apple.y) {
-    apple.x =  getRandomInt(0, 19) * 32;
-    apple.y =  getRandomInt(0, 19) * 32;
-    gamer.score++;
-    gamer.maxCells++;
-    console.log(gamer.score);
-    logScore();
-  }
-}
-
-function logScore() {
-  // context.font = "48px serif";
-  // context.fillText(gamer.score, 700, 50);
-  placeForData.innerHTML = `<div 
-  style = "color: rgb(75, 91, 94); 
-          font-size: 48px;"
-          font: serif;
-          > Score: ${gamer.score}</div>`
-}
-
-let timerSnake = setInterval(go, 70);
-
-let count = 0;
-document.addEventListener('keydown', function (e) {
-  if (e.which === 32 ) {
-    if (count == 0) {
-    clearInterval(timerSnake);
-    count++;
-  }
-  else {
-    timerSnake = setInterval(go, 70);
-    count--;
+function start() {
+  const gamer = new Snake(taskEntryField.value);
+  console.log(gamer.id);
+  document.getElementById("form").remove();
+  logScore();
+  apple.__proto__ = gamer;
+  document.addEventListener('keydown', function (e) {
+    gamer.changeDirection(e);
+  });
+  
+  
+  
+  
+  function go() {
+    gamer.move();
+    apple.render();
+    if (gamer.x == apple.x && gamer.y == apple.y) {
+      apple.x =  getRandomInt(0, 19) * 32;
+      apple.y =  getRandomInt(0, 19) * 32;
+      gamer.score++;
+      gamer.maxCells++;
+      console.log(gamer.score);
+      logScore();
     }
-  } 
-});
+  }
+  
+  function logScore() {
+    placeForData.innerHTML = `<p 
+    style = "color: rgb(75, 91, 94); 
+            font-size: 48px;
+            font: serif;
+            padding:10px;"
+            >Игрок: ${gamer.id}
+            </p>
+            <p  style = "color: rgb(75, 91, 94); 
+            font-size: 48px;
+            font: serif;
+            padding:10px;">Очки: ${gamer.score} </p>`
+  }
+  
+  let timerSnake = setInterval(go, 70);
+  
+  let count = 0;
+  document.addEventListener('keydown', function (e) {
+    if (e.which === 32 ) {
+      if (count == 0) {
+      clearInterval(timerSnake);
+      count++;
+    }
+    else {
+      timerSnake = setInterval(go, 70);
+      count--;
+      }
+    } 
+  });
+  
+}
+
+
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
 
+
+console.log(Number.isFinite("0"))
 
 
