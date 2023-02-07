@@ -1,6 +1,6 @@
 :root {
-    --background-color: rgb(168, 213, 224);
-    --tetris-field-color: rgb(75, 91, 94);
+    --background-color: rgb(176, 206, 141);
+    --tetris-field-color: rgb(51, 90, 46);
     --snake-color: rgb(182, 250, 104);
     --apple-color: rgb(219, 0, 0);
     
@@ -19,21 +19,26 @@ body {
 }
 canvas {
     background: var(--tetris-field-color);
-    /* border: 1px solid var(--tetris-field-color); */
+    width: 608px;
+    height: 608px;
 }
-
+.canvas {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
 #score {
     width: 400px;
     height: 500px;
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: center;
     flex-flow: column;
 }
 
 #form {
     position: fixed;
-    left: 18%;
+    left: 33%;
 }
 
 
@@ -53,4 +58,11 @@ button {
     padding:10px;
     border-radius:10px;
     outline:none;
+}
+
+.gamer {
+    color: var(--tetris-field-color); 
+    font-size: 48px;
+    font-family: 'Courier New', Courier, monospace;
+    padding:10px;
 }
