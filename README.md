@@ -1,2 +1,2 @@
 # snake
-Implementation of the movement of the snake from the famous game.
+Реализация игры Змейка (без возможности проиграть). Написана на нативном JavaScript. 
